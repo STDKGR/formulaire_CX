@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Enregistrement Entreprise</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+        }
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .well-custom {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        .col-6 {
+            flex: 0 0 50%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .col-12 {
+            flex: 0 0 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .radio-label input {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background-color: #27ae60;
+            color: white;
+        }
+        .btn-info {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-warning {
+            background-color: #f39c12;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        .numero-display {
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .conditional-field {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin-top: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .message-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success-msg {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error-msg {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning-msg {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #3498db;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .action-buttons button {
+            flex: 1;
+        }
+        .stats-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        @media (max-width: 768px) {
+            .col-6 {
+                flex: 0 0 100%;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-custom">
+        <h1 style="text-align: center; color: #2c3e50;">📝 Formulaire d'Enregistrement Entreprise</h1>
+        
+        <div class="numero-display">
+            N° Répondant : <span id="numeroDisplay">1</span>
+        </div>
+        
+        <!-- Formulaire -->
+        <div class="well-custom">
+            <h3 class="section-title">🏢 Informations de l'Entreprise</h3>
+            
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="form-label required-field">Nom de l'entreprise</label>
+                        <input type="text" class="form-control" id="nom_entreprise" placeholder="Saisir le nom complet">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="form-label required-field">Ville</label>
+                        <select class="form-control" id="ville">
+                            <option value="">Sélectionner...</option>
+                            <option value="Douala">Douala</option>
+                            <option value="Yaoundé">Yaoundé</option>
+                            <option value="Bafoussam">Bafoussam</option>
+                            <option value="Garoua">Garoua</option>
+                            <option value="Autres villes">Autres villes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="form-label">Adresse complète</label>
+                        <textarea class="form-control" id="adresse" rows="3" placeholder="Quartier, rue, code postal..."></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="form-label required-field">Téléphone</label>
+                        <input type="tel" class="form-control" id="telephone" placeholder="XXX XX XX XX">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="form-label required-field">Segment</label>
+                        <select class="form-control" id="segments">
+                            <option value="">Sélectionner...</option>
+                            <option value="SOHO">SOHO</option>
+                            <option value="PME">PME</option>
+                            <option value="CORPORATE">CORPORATE</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="form-label required-field">Nom du répondant</label>
+                        <input type="text" class="form-control" id="nom_repondant" placeholder="Nom complet du répondant">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Disponibilité -->
+        <div class="well-custom">
+            <h3 class="section-title">📞 Statut de Disponibilité</h3>
+            
+            <div class="form-group">
+                <label class="form-label required-field">Répondant disponible ?</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="disponibilite" value="oui"> Oui
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="disponibilite" value="non"> Non
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Section OUI -->
+            <div id="section_oui" class="hidden">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label required-field">Date de Rendez-Vous</label>
+                            <input type="date" class="form-control" id="date_rdv_oui">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label required-field">Heure de Rendez-Vous</label>
+                            <input type="time" class="form-control" id="heure_rdv_oui">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section NON -->
+            <div id="section_non" class="hidden">
+                <div class="form-group">
+                    <label class="form-label required-field">Raison de non disponibilité</label>
+                    <select class="form-control" id="raison_non_dispo">
+                        <option value="">Sélectionner...</option>
+                        <option value="Mauvais contact/Coordonnées obsolètes">Mauvais contact/Coordonnées obsolètes</option>
+                        <option value="Sujet non pertinent">Sujet non pertinent pour l'entreprise</option>
+                        <option value="Manque de temps">Manque de temps</option>
+                        <option value="Questionnaire trop long">Questionnaire trop long/Complexe</option>
+                        <option value="Politique interne">Politique interne interdisant les sondages</option>
+                        <option value="Mauvaise cible">Départ/Mauvaise cible</option>
+                        <option value="RGPD">Préoccupations confidentialité/RGPD</option>
+                        <option value="Fatigue enquêtes">Fatigue d'enquêtes</option>
+                        <option value="Aucun bénéfice">Aucun bénéfice perçu</option>
+                        <option value="Mauvaise adresse">Mauvaise adresse de l'entreprise</option>
+                        <option value="Non informé">L'entreprise n'a pas été informé avant</option>
+                        <option value="Quota atteint">Quota opérateur atteint</option>
+                        <option value="Autre contact">Autre contact téléphonique disponible</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+                
+                <!-- Autre contact -->
+                <div id="section_autre_contact" class="hidden conditional-field">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label required-field">Autre contact téléphonique</label>
+                                <input type="tel" class="form-control" id="autre_contact" placeholder="Nouveau numéro">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Nom du répondant de remplacement</label>
+                                <input type="text" class="form-control" id="nom_repondant_autre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Fonction du répondant</label>
+                                <input type="text" class="form-control" id="fonction_repondant_autre">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Date de Rendez-Vous</label>
+                                <input type="date" class="form-control" id="date_rdv_autre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="form-label">Heure de Rendez-Vous</label>
+                                <input type="time" class="form-control" id="heure_rdv_autre">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Autre raison -->
+                <div id="section_autre_raison" class="hidden conditional-field">
+                    <div class="form-group">
+                        <label class="form-label required-field">Précisez la raison</label>
+                        <input type="text" class="form-control" id="autre_raison" placeholder="Détaillez la raison...">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="well-custom">
+            <h3 class="section-title">✅ Actions</h3>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="enregistrer()">💾 Enregistrer</button>
+                <button class="btn btn-info" onclick="nouveau()">🆕 Nouveau</button>
+                <button class="btn btn-warning" onclick="reinitialiser()">🔄 Réinitialiser</button>
+                <button class="btn btn-secondary" onclick="voirDonnees()">👀 Voir les données</button>
+            </div>
+            
+            <div id="messageBox" class="hidden"></div>
+        </div>
+        
+        <!-- Statistiques -->
+        <div class="stats-box">
+            <div class="stat-item">
+                <div class="stat-number" id="stat_total">0</div>
+                <div class="stat-label">Total Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat_disponibles">0</div>
+                <div class="stat-label">Disponibles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat_non_disponibles">0</div>
+                <div class="stat-label">Non Disponibles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="stat_contacts_alt">0</div>
+                <div class="stat-label">Contacts Alternatifs</div>
+            </div>
+        </div>
+        
+        <!-- Tableau des données -->
+        <div class="well-custom">
+            <h3 class="section-title">📊 Base de Données Clients</h3>
+            
+            <div class="action-buttons" style="margin-bottom: 20px;">
+                <button class="btn btn-info" onclick="exporterCSV()">📥 Exporter CSV</button>
+                <button class="btn btn-secondary" onclick="effacerDonnees()">🗑️ Effacer toutes les données</button>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table id="tableauDonnees">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Date</th>
+                            <th>Entreprise</th>
+                            <th>Ville</th>
+                            <th>Segment</th>
+                            <th>Téléphone</th>
+                            <th>Répondant</th>
+                            <th>Disponible</th>
+                            <th>Raison</th>
+                            <th>Date RDV</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableauBody">
+                        <tr>
+                            <td colspan="10" style="text-align: center; color: #999;">Aucune donnée enregistrée</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base de données locale (stockage dans le navigateur)
+        let donnees = JSON.parse(localStorage.getItem("clientsData")) || [];
+        let numeroActuel = donnees.length > 0 ? Math.max(...donnees.map(d => d.numero)) + 1 : 1;
+
+        // Mise à jour du numéro au chargement
+        document.getElementById("numeroDisplay").textContent = numeroActuel;
+
+        // Gestion de la disponibilité
+        document.querySelectorAll("input[name='disponibilite']").forEach(radio => {
+            radio.addEventListener("change", function() {
+                document.getElementById("section_oui").classList.add("hidden");
+                document.getElementById("section_non").classList.add("hidden");
+                
+                if(this.value === "oui") {
+                    document.getElementById("section_oui").classList.remove("hidden");
+                } else {
+                    document.getElementById("section_non").classList.remove("hidden");
+                }
+            });
+        });
+
+        // Gestion de la raison de non disponibilité
+        document.getElementById("raison_non_dispo").addEventListener("change", function() {
+            document.getElementById("section_autre_contact").classList.add("hidden");
+            document.getElementById("section_autre_raison").classList.add("hidden");
+            
+            if(this.value === "Autre contact") {
+                document.getElementById("section_autre_contact").classList.remove("hidden");
+            } else if(this.value === "Autre") {
+                document.getElementById("section_autre_raison").classList.remove("hidden");
+            }
+        });
+
+        // Fonction d'enregistrement
+        function enregistrer() {
+            const nom = document.getElementById("nom_entreprise").value.trim();
+            const ville = document.getElementById("ville").value;
+            const telephone = document.getElementById("telephone").value.trim();
+            const segment = document.getElementById("segments").value;
+            const nomRepondant = document.getElementById("nom_repondant").value.trim();
+            const disponibilite = document.querySelector("input[name='disponibilite']:checked");
+            
+            // Validation des champs obligatoires
+            if(!nom || !ville || !telephone || !segment || !nomRepondant || !disponibilite) {
+                afficherMessage("❌ Veuillez remplir tous les champs obligatoires (*)", "error");
+                return;
+            }
+            
+            // Validation supplémentaire pour disponibilité "non"
+            if(disponibilite.value === "non") {
+                const raison = document.getElementById("raison_non_dispo").value;
+                if(!raison) {
+                    afficherMessage("⚠️ Veuillez sélectionner une raison de non disponibilité", "warning");
+                    return;
+                }
+                
+                if(raison === "Autre contact" && !document.getElementById("autre_contact").value.trim()) {
+                    afficherMessage("📞 Veuillez saisir l'autre contact téléphonique", "warning");
+                    return;
+                }
+                
+                if(raison === "Autre" && !document.getElementById("autre_raison").value.trim()) {
+                    afficherMessage("⚠️ Veuillez préciser la raison", "warning");
+                    return;
+                }
+            }
+            
+            // Création de l'enregistrement
+            const enregistrement = {
+                numero: numeroActuel,
+                date: new Date().toLocaleString("fr-FR"),
+                nom_entreprise: nom,
+                ville: ville,
+                segment: segment,
+                adresse: document.getElementById("adresse").value.trim(),
+                telephone: telephone,
+                nom_repondant: nomRepondant,
+                disponibilite: disponibilite.value,
+                raison: disponibilite.value === "non" ? document.getElementById("raison_non_dispo").value : "",
+                autre_contact: document.getElementById("autre_contact").value.trim(),
+                nom_repondant_autre: document.getElementById("nom_repondant_autre").value.trim(),
+                fonction_repondant_autre: document.getElementById("fonction_repondant_autre").value.trim(),
+                autre_raison: document.getElementById("autre_raison").value.trim(),
+                date_rdv: disponibilite.value === "oui" ? document.getElementById("date_rdv_oui").value : document.getElementById("date_rdv_autre").value,
+                heure_rdv: disponibilite.value === "oui" ? document.getElementById("heure_rdv_oui").value : document.getElementById("heure_rdv_autre").value
+            };
+            
+            // Sauvegarde dans localStorage
+            donnees.push(enregistrement);
+            localStorage.setItem("clientsData", JSON.stringify(donnees));
+            
+            afficherMessage("✅ Enregistrement réussi ! N° " + numeroActuel, "success");
+            
+            // Mise à jour du numéro
+            numeroActuel++;
+            document.getElementById("numeroDisplay").textContent = numeroActuel;
+            
+            // Mise à jour des statistiques et du tableau
+            mettreAJourStatistiques();
+            afficherTableau();
+            
+            // Réinitialisation du formulaire après 2 secondes
+            setTimeout(() => {
+                reinitialiser();
+            }, 2000);
+        }
+
+        // Fonction nouveau
+        function nouveau() {
+            reinitialiser();
+            afficherMessage("✨ Formulaire prêt pour un nouvel enregistrement", "success");
+            setTimeout(() => {
+                document.getElementById("messageBox").classList.add("hidden");
+            }, 2000);
+        }
+
+        // Fonction réinitialiser
+        function reinitialiser() {
+            document.getElementById("nom_entreprise").value = "";
+            document.getElementById("ville").value = "";
+            document.getElementById("adresse").value = "";
+            document.getElementById("telephone").value = "";
+            document.getElementById("segments").value = "";
+            document.getElementById("nom_repondant").value = "";
+            document.querySelectorAll("input[name='disponibilite']").forEach(r => r.checked = false);
+            document.getElementById("raison_non_dispo").value = "";
+            document.getElementById("autre_contact").value = "";
+            document.getElementById("nom_repondant_autre").value = "";
+            document.getElementById("fonction_repondant_autre").value = "";
+            document.getElementById("autre_raison").value = "";
+            document.getElementById("date_rdv_oui").value = "";
+            document.getElementById("heure_rdv_oui").value = "";
+            document.getElementById("date_rdv_autre").value = "";
+            document.getElementById("heure_rdv_autre").value = "";
+            
+            document.getElementById("section_oui").classList.add("hidden");
+            document.getElementById("section_non").classList.add("hidden");
+            document.getElementById("section_autre_contact").classList.add("hidden");
+            document.getElementById("section_autre_raison").classList.add("hidden");
+            document.getElementById("messageBox").classList.add("hidden");
+            
+            // Focus sur le premier champ
+            document.getElementById("nom_entreprise").focus();
+        }
+
+        // Afficher message
+        function afficherMessage(texte, type) {
+            const box = document.getElementById("messageBox");
+            box.className = "message-box " + type + "-msg";
+            box.textContent = texte;
+            box.classList.remove("hidden");
+        }
+
+        // Voir les données
+        function voirDonnees() {
+            afficherTableau();
+            mettreAJourStatistiques();
+            document.getElementById("tableauDonnees").scrollIntoView({ behavior: "smooth" });
+            afficherMessage("📊 " + donnees.length + " enregistrement(s) trouvé(s)", "success");
+            setTimeout(() => {
+                document.getElementById("messageBox").classList.add("hidden");
+            }, 2000);
+        }
+
+        // Afficher le tableau
+        function afficherTableau() {
+            const tbody = document.getElementById("tableauBody");
+            
+            if(donnees.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: #999;">Aucune donnée enregistrée</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = donnees.map(d => `
+                <tr style="background-color: ${d.disponibilite === "oui" ? "#d4edda" : "#f8d7da"}">
+                    <td><strong>${d.numero}</strong></td>
+                    <td>${d.date}</td>
+                    <td>${d.nom_entreprise}</td>
+                    <td>${d.ville}</td>
+                    <td>${d.segment}</td>
+                    <td>${d.telephone}</td>
+                    <td>${d.nom_repondant}</td>
+                    <td>${d.disponibilite === "oui" ? "✅ Oui" : "❌ Non"}</td>
+                    <td>${d.raison || "-"}</td>
+                    <td>${d.date_rdv || "-"} ${d.heure_rdv ? d.heure_rdv : ""}</td>
+                </tr>
+            `).join("");
+        }
+
+        // Mettre à jour les statistiques
+        function mettreAJourStatistiques() {
+            document.getElementById("stat_total").textContent = donnees.length;
+            document.getElementById("stat_disponibles").textContent = donnees.filter(d => d.disponibilite === "oui").length;
+            document.getElementById("stat_non_disponibles").textContent = donnees.filter(d => d.disponibilite === "non").length;
+            document.getElementById("stat_contacts_alt").textContent = donnees.filter(d => d.autre_contact).length;
+        }
+
+        // Exporter CSV
+        function exporterCSV() {
+            if(donnees.length === 0) {
+                afficherMessage("⚠️ Aucune donnée à exporter", "warning");
+                setTimeout(() => {
+                    document.getElementById("messageBox").classList.add("hidden");
+                }, 2000);
+                return;
+            }
+            
+            const csv = convertToCSV(donnees);
+            downloadFile(csv, "clients_" + new Date().toISOString().split("T")[0] + ".csv", "text/csv");
+            afficherMessage("✅ Données exportées avec succès", "success");
+            setTimeout(() => {
+                document.getElementById("messageBox").classList.add("hidden");
+            }, 2000);
+        }
+
+        // Effacer toutes les données
+        function effacerDonnees() {
+            if(donnees.length === 0) {
+                afficherMessage("ℹ️ Aucune donnée à effacer", "warning");
+                setTimeout(() => {
+                    document.getElementById("messageBox").classList.add("hidden");
+                }, 2000);
+                return;
+            }
+            
+            if(confirm("⚠️ Êtes-vous sûr de vouloir supprimer TOUTES les données ?\n\nCette action est irréversible !")) {
+                donnees = [];
+                localStorage.setItem("clientsData", JSON.stringify(donnees));
+                numeroActuel = 1;
+                document.getElementById("numeroDisplay").textContent = numeroActuel;
+                afficherTableau();
+                mettreAJourStatistiques();
+                afficherMessage("🗑️ Toutes les données ont été supprimées", "warning");
+            }
+        }
+
+        // Conversion en CSV
+        function convertToCSV(data) {
+            if(data.length === 0) return "";
+            
+            const headers = ["Numero", "Date", "Entreprise", "Ville", "Segment", "Adresse", "Telephone", "Nom Repondant", "Disponibilite", "Raison", "Autre Contact", "Nom Repondant Autre", "Fonction Repondant Autre", "Autre Raison", "Date RDV", "Heure RDV"];
+            const rows = data.map(obj => [
+                obj.numero,
+                obj.date,
+                obj.nom_entreprise,
+                obj.ville,
+                obj.segment,
+                obj.adresse,
+                obj.telephone,
+                obj.nom_repondant,
+                obj.disponibilite,
+                obj.raison || "",
+                obj.autre_contact || "",
+                obj.nom_repondant_autre || "",
+                obj.fonction_repondant_autre || "",
+                obj.autre_raison || "",
+                obj.date_rdv || "",
+                obj.heure_rdv || ""
+            ].map(val => `"${val}"`).join(";"));
+            
+            return headers.join(";") + "\n" + rows.join("\n");
+        }
+
+        // Télécharger fichier
+        function downloadFile(content, filename, type) {
+            const BOM = "\uFEFF"; // Byte Order Mark pour UTF-8
+            const blob = new Blob([BOM + content], { type: type + ";charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialisation au chargement de la page
+        window.addEventListener("load", function() {
+            afficherTableau();
+            mettreAJourStatistiques();
+            document.getElementById("nom_entreprise").focus();
+        });
+    </script>
+</body>
+</html>
